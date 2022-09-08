@@ -12,6 +12,8 @@ public class PlanetRotation : MonoBehaviour
     private float _spriteWidth;
     private bool _onFirstSprite = true;
 
+    public float RotationSpeed { get => _rotationSpeed; set => _rotationSpeed = value; }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -19,10 +21,22 @@ public class PlanetRotation : MonoBehaviour
         _sprites = transform.Find("Sprites").GetComponent<RectTransform>();
         _first = _sprites.Find("First").GetComponent<RectTransform>();
         _first.GetComponent<SpriteRenderer>().sprite = Resources.instance.PlanetSprites[_currentIndex];
-        _spriteWidth = _first.GetComponent<SpriteRenderer>().bounds.extents.x * 2;
+        UpdateSpriteWidth();
         _second = _sprites.Find("Second").GetComponent<RectTransform>();
         _second.GetComponent<SpriteRenderer>().sprite = Resources.instance.PlanetSprites[_currentIndex];
         _second.position = new Vector3(_first.position.x + _spriteWidth, _first.position.y);
+    }
+
+    // set sorting id
+    public void SetSortingFrontLayerIDs(int to)
+    {
+        _second.GetComponent<SpriteRenderer>().sortingOrder = to;
+        _first.GetComponent<SpriteRenderer>().sortingOrder = to;
+    }
+
+    public void UpdateSpriteWidth()
+    {
+        _spriteWidth = _first.GetComponent<SpriteRenderer>().bounds.extents.x * 2;
     }
 
     void FixedUpdate()
