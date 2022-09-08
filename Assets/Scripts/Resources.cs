@@ -32,11 +32,20 @@ public class Resources : MonoBehaviour
     [SerializeField]
     private Sprite[] _backgroundImages;
     [SerializeField]
+    [Range(2,100)]
     private int _planetCount;
     [SerializeField]
     private GameObject _planet;
     [SerializeField]
     private float _minRadius, _maxRadius, _minSpeed, _maxSpeed, _xBorder = 8.8f, _yBorder = 5f;
+    [SerializeField]
+    private int _shipsAddition = 5, _minStartShipsCount = 1, _maxStartShipsCount = 50;
+    [SerializeField]
+    private Color _playerColor, _computerColor;
+
+    public int ShipsAddition { get => _shipsAddition; }
+    public Color PlayerColor { get => _playerColor; }
+    public Color ComputerColor { get => _computerColor; }
 
     private System.Random _rng;
     private Transform _spawnPoint;
@@ -57,7 +66,7 @@ public class Resources : MonoBehaviour
         _rng = new System.Random();
 
         // set random background
-        transform.Find("Background").GetComponent<Image>().sprite =
+        GameObject.Find("Background").GetComponent<SpriteRenderer>().sprite =
             _backgroundImages[Rng.Next(0, _backgroundImages.Length)];
 
         // get default spawn point (0;0)
@@ -75,8 +84,6 @@ public class Resources : MonoBehaviour
     {
         return Mathf.Sqrt((v2.x - v1.x) * (v2.x - v1.x) + (v2.y - v1.y) * (v2.y - v1.y));
     }
-
-
 
     private void SpawnPlanets()
     {
@@ -130,5 +137,21 @@ public class Resources : MonoBehaviour
         planet.GetComponent<SpriteMask>().frontSortingOrder = index;
         planet.SetSortingFrontLayerIDs(index);
         planet.UpdateSpriteWidth();
+        PlanetStats stats = planet.GetComponent<PlanetStats>();
+        if (index == 1)
+        {
+            stats.SetPlanetOwner(EShipOwner.Player);
+            stats.Ships = _maxStartShipsCount;
+        }  
+        else if (index == 2)
+        {
+            stats.SetPlanetOwner(EShipOwner.Computer);
+            stats.Ships = _maxStartShipsCount;
+        }
+        else
+        {
+            stats.Ships = Rng.Next(_minStartShipsCount, _maxStartShipsCount);
+        }
+        stats.UpdateShip();
     }
 }
