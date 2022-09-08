@@ -43,12 +43,16 @@ public class Resources : MonoBehaviour
     [SerializeField]
     private Color _playerColor, _computerColor;
 
+
+    public PlanetStats LastLightedPlanet { get => _lastLightedPlanet; set => _lastLightedPlanet = value; }
     public int ShipsAddition { get => _shipsAddition; }
     public Color PlayerColor { get => _playerColor; }
     public Color ComputerColor { get => _computerColor; }
+    public KeyValuePair<float, float> Border { get => new KeyValuePair<float, float>(_xBorder + _maxRadius, _yBorder + _maxRadius); }
 
     private System.Random _rng;
     private Transform _spawnPoint;
+    private PlanetStats _lastLightedPlanet;
 
     public System.Random Rng { get => _rng; }
     public Sprite[] PlanetSprites { get => _planetSprites; }
@@ -127,6 +131,16 @@ public class Resources : MonoBehaviour
             }
             i++;
         }
+
+        // all planets spawned - wait for 2 frames than build a A* graph according to planets
+        StartCoroutine(PathFindingCoroutine());
+    }
+
+    private IEnumerator PathFindingCoroutine()
+    {
+        yield return null; 
+        yield return null;
+        GameObject.Find("Pathfinding Manager").GetComponent<AstarPath>().Scan();
     }
 
     private IEnumerator PlanetSortOrderCoroutine(PlanetRotation planet, float rad, int index)
@@ -138,6 +152,7 @@ public class Resources : MonoBehaviour
         planet.SetSortingFrontLayerIDs(index);
         planet.UpdateSpriteWidth();
         PlanetStats stats = planet.GetComponent<PlanetStats>();
+        stats.Radius = rad;
         if (index == 1)
         {
             stats.SetPlanetOwner(EShipOwner.Player);

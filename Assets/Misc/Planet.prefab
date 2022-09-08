@@ -403,7 +403,7 @@ GameObject:
   - component: {fileID: 568781985}
   - component: {fileID: 3525630310375512046}
   - component: {fileID: 6376008676682410012}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Planet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -509,6 +509,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 192bec37e93e2594caaa4a3ab2436bcb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _ship: {fileID: 7806431729661301331, guid: abf6952913986af43addee05fec8e5f4, type: 3}
 --- !u!58 &6376008676682410012
 CircleCollider2D:
   m_ObjectHideFlags: 0

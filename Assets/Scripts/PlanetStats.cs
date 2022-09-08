@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Pathfinding;
 
 public class PlanetStats : MonoBehaviour
 {
@@ -13,10 +14,14 @@ public class PlanetStats : MonoBehaviour
     private GameObject _highlight;
     private LineRenderer _lineRenderer;
     private Camera _mainCam;
+    [SerializeField]
+    private GameObject _ship;
+    private float _radius;
 
-    private bool _inDragMode = false;
+    private bool _inDragMode = false, _onPlanet = false;
 
     public int Ships { set => _ships = value; get => _ships; }
+    public float Radius { set => _radius = value; get => _radius; }
 
     // Start is called before the first frame update
     void Start()
@@ -37,10 +42,13 @@ public class PlanetStats : MonoBehaviour
         InvokeRepeating(nameof(UpdateShip), 1, 1);
     }
 
-    public void UpdateShip()
+    private void FixedUpdate()
     {
         _text.text = _ships.ToString();
+    }
 
+    public void UpdateShip()
+    {
         if(_owner == EShipOwner.None)
         {
             return;
@@ -69,11 +77,14 @@ public class PlanetStats : MonoBehaviour
     private void OnMouseEnter()
     {
         _highlight.SetActive(true);
+        _onPlanet = true;
+        Resources.instance.LastLightedPlanet = this;
     }
 
     // set planet not highlighted
     private void OnMouseExit()
     {
+        _onPlanet = false;
         if (!_inDragMode)
             _highlight.SetActive(false);
     }
@@ -90,22 +101,68 @@ public class PlanetStats : MonoBehaviour
         _lineRenderer.SetPosition(1, new Vector3(pos.x, pos.y, 0));
     }
 
+    private bool IsPointTouchingObject(Vector2 point, GameObject obj)
+    {
+        return obj.GetComponent<Collider2D>().OverlapPoint(point);
+    }
+
+    private bool VectorsAreEqual(Vector3 v1, Vector3 v2, double EPSILON = 0.0000001)
+    {
+        return Mathf.Abs(v1.x - v2.x) + Mathf.Abs(v1.y - v2.y) + Mathf.Abs(v1.z - v2.z) < EPSILON;
+    }
+
     //end unit drag - if stopped on planet - send units to destination
     private void OnMouseUp()
     {
         _inDragMode = false;
-        OnMouseExit();
-        // if not the same planet
-        if(_lineRenderer.GetPosition(0) != _lineRenderer.GetPosition(1))
+        if (_owner != EShipOwner.Player)
         {
-            // and if on the planet
+            return;
         }
+        // if not the same planet
+        // and if on the planet which is not a player's planet btw
+        if (Resources.instance.LastLightedPlanet._onPlanet && 
+            Resources.instance.LastLightedPlanet._owner != EShipOwner.Player)
+        {
+            //spawn 50% of the total ship count
+            int count = _ships / 2;
+            float x, y;
+            _ships -= count;
+            for(int i = 0; i < count; i++)
+            {
+                x = Resources.instance.GetRandomFloat(0, Radius);
+                if (Resources.instance.Rng.Next() % 2 > 0)
+                    x = -x;
+                y = Resources.instance.GetRandomFloat(0, Radius);
+                if (Resources.instance.Rng.Next() % 2 > 0)
+                    y = -y;
+
+                Instantiate(_ship, new Vector3(
+                    transform.position.x + x,
+                    transform.position.y + y,
+                    transform.position.z), Quaternion.identity).
+                    GetComponent<ShipAI>().SetStats(this, 
+                    Resources.instance.LastLightedPlanet, Resources.instance.LastLightedPlanet.Radius);
+            }
+        }
+        OnMouseExit();
         _lineRenderer.SetPosition(1, _lineRenderer.GetPosition(0));
     }
 
-    private void OnMouseUpAsButton()
+    public void OnPathComplete(PlanetStats target, GameObject ship, PlanetStats sender)
     {
-        _lineRenderer.SetPosition(1, _lineRenderer.GetPosition(0));
-    }
+        Destroy(ship);
+        if(target._owner == sender._owner)
+        {
+            target._ships++;
+            return;
+        }
 
+        target._ships--;
+        // planet have been captured
+        if (target._ships <= 0)
+        {
+            target.SetPlanetOwner(sender._owner);
+        }
+    }
 }
