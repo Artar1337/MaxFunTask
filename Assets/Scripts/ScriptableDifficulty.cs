@@ -12,4 +12,6 @@ public class ScriptableDifficulty : ScriptableObject
     public int _planetsCount;
     // bot reaction time
     public float _reactionTime;
+    // background music
+    public AudioClip _clip;
 }

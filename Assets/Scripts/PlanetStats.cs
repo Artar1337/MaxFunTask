@@ -151,7 +151,8 @@ public class PlanetStats : MonoBehaviour
                 GetComponent<ShipAI>().SetStats(this,
                 target,
                 _owner == EShipOwner.Player ?
-                Resources.instance.PlayerColor : Resources.instance.ComputerColor);
+                Resources.instance.PlayerColor : Resources.instance.ComputerColor, 
+                _owner);
         }
     }
 
@@ -174,16 +175,18 @@ public class PlanetStats : MonoBehaviour
         _lineRenderer.SetPosition(1, _lineRenderer.GetPosition(0));
     }
 
-    public void OnPathComplete(PlanetStats target, GameObject ship, PlanetStats sender)
+    public void OnPathComplete(PlanetStats target, GameObject ship, EShipOwner shipOwner)
     {
         // owner is player
-        if(sender._owner == EShipOwner.Player)
+        if(shipOwner == EShipOwner.Player)
             Instantiate(_landEffectPlayer, ship.transform.position, ship.transform.rotation);
         // owner is computer
         else
             Instantiate(_landEffectComputer, ship.transform.position, ship.transform.rotation);
+        
         Destroy(ship);
-        if(target._owner == sender._owner)
+
+        if(target._owner == shipOwner)
         {
             target._ships++;
             return;
@@ -193,7 +196,7 @@ public class PlanetStats : MonoBehaviour
         // planet have been captured
         if (target._ships <= 0)
         {
-            target.SetPlanetOwner(sender._owner);
+            target.SetPlanetOwner(shipOwner);
         }
     }
 }

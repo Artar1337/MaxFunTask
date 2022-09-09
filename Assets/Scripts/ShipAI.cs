@@ -12,6 +12,9 @@ public class ShipAI : MonoBehaviour
     private float _nextWaypointDistance = 0.05f;
     private Seeker _seeker;
     private SpriteRenderer _rend;
+    private EShipOwner _owner = EShipOwner.None;
+
+    public EShipOwner Owner { get => _owner; }
 
     private void Start()
     {
@@ -19,10 +22,11 @@ public class ShipAI : MonoBehaviour
         _rend = transform.Find("Graphics").GetComponent<SpriteRenderer>();
     }
 
-    public void SetStats(PlanetStats sender, PlanetStats target, Color shipCol)
+    public void SetStats(PlanetStats sender, PlanetStats target, Color shipCol, EShipOwner owner)
     {
         _sender = sender;
         _target = target;
+        _owner = owner;
         if (_seeker == null || _rend == null)
             Start();
         _rend.color = shipCol;
@@ -47,7 +51,7 @@ public class ShipAI : MonoBehaviour
         // path ended
         if(_currentWaypoint >= _path.vectorPath.Count)
         {
-            _sender.OnPathComplete(_target, gameObject, _sender);
+            _sender.OnPathComplete(_target, gameObject, _sender.Owner);
             return;
         }
 

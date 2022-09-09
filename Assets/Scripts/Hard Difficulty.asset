@@ -16,3 +16,4 @@ MonoBehaviour:
   _difficultyName: Hard
   _planetsCount: 25
   _reactionTime: 2.1
+  _clip: {fileID: 8300000, guid: 30794a64494d7b44790d7130c8454cc1, type: 3}

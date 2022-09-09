@@ -75,9 +75,16 @@ public class Resources : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // init components
         _sounds = GetComponent<AudioSource>();
         _planetCount = _difficulty._planetsCount;
         _rng = new System.Random();
+
+        // init background music
+        AudioSource music = transform.Find("Background Music").GetComponent<AudioSource>();
+        music.clip = _difficulty._clip;
+        music.loop = true;
+        music.Play();
 
         // set random background
         GameObject.Find("Background").GetComponent<SpriteRenderer>().sprite =
