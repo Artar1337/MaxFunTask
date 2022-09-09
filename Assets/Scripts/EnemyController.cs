@@ -20,6 +20,10 @@ public class EnemyController : MonoBehaviour
     #endregion
 
     private PlanetStats[] _planets;
+    private HashSet<EShipOwner> _owners;
+
+    // returns last parsed list of total owners on map
+    public HashSet<EShipOwner> Owners { get => _owners; }
 
     // Start is called before the first frame update
     void Start()
@@ -33,10 +37,10 @@ public class EnemyController : MonoBehaviour
     {
         if (Resources.instance.IsGameOver)
             return true;
-        HashSet<EShipOwner> owners = new HashSet<EShipOwner>();
+        _owners = new HashSet<EShipOwner>();
         foreach (var planet in _planets)
-            owners.Add(planet.Owner);
-        return !(owners.Contains(EShipOwner.Player) && owners.Contains(EShipOwner.Computer));
+            _owners.Add(planet.Owner);
+        return !(_owners.Contains(EShipOwner.Player) && _owners.Contains(EShipOwner.Computer));
     }
 
     private void ComputerTick()

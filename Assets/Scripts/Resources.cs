@@ -43,6 +43,8 @@ public class Resources : MonoBehaviour
     [SerializeField]
     private ScriptableDifficulty _difficulty;
 
+    public AudioClip _loseClip, _winClip, _playerCapturedClip, _computerCapturedClip, _explosionSound;
+
     public ScriptableDifficulty Difficulty { get => _difficulty; }
     public PlanetStats LastLightedPlanet { get => _lastLightedPlanet; set => _lastLightedPlanet = value; }
     public int ShipsAddition { get => _shipsAddition; }
@@ -56,10 +58,11 @@ public class Resources : MonoBehaviour
     private Transform _spawnPoint;
     private PlanetStats _lastLightedPlanet;
     private Dictionary<float, KeyValuePair<float, float>> _planetsInfo;
+    private AudioSource _sounds;
 
+    public AudioSource Sounds { get => _sounds; }
     public System.Random Rng { get => _rng; }
     public Sprite[] PlanetSprites { get => _planetSprites; }
-
     public Dictionary<float, KeyValuePair<float, float>> Planets { get => _planetsInfo; }
 
     public float GetRandomFloat(float min, float max)
@@ -72,6 +75,7 @@ public class Resources : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        _sounds = GetComponent<AudioSource>();
         _planetCount = _difficulty._planetsCount;
         _rng = new System.Random();
 
@@ -183,7 +187,17 @@ public class Resources : MonoBehaviour
             return;
 
         Debug.Log("GAME OVER lol");
-
+        // computer won
+        if (EnemyController.instance.Owners.Contains(EShipOwner.Computer))
+        {
+            Sounds.PlayOneShot(_loseClip);
+        }
+        // player won
+        else
+        {
+            Sounds.PlayOneShot(_winClip);
+        }
+        
         _gameOverMessageShown = true;
     }
 }

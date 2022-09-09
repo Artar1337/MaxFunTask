@@ -58,6 +58,7 @@ public class PlanetStats : MonoBehaviour
         _ships += Resources.instance.ShipsAddition;
     }
 
+    // check game over also checks for sound play
     public void SetPlanetOwner(EShipOwner to, bool checkGameOver = true)
     {
         _owner = to;
@@ -80,7 +81,13 @@ public class PlanetStats : MonoBehaviour
         {
             // game over screen
             Resources.instance.GameOver();
+            return;
         }
+        // if game not over - planet just captured
+        if (_owner == EShipOwner.Player)
+            Resources.instance.Sounds.PlayOneShot(Resources.instance._playerCapturedClip);
+        else if (_owner == EShipOwner.Computer)
+            Resources.instance.Sounds.PlayOneShot(Resources.instance._computerCapturedClip);
     }
 
     // set planet highlighted
