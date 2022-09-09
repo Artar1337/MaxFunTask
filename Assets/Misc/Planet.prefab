@@ -510,6 +510,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _ship: {fileID: 7806431729661301331, guid: abf6952913986af43addee05fec8e5f4, type: 3}
+  _landEffectPlayer: {fileID: 6777162873902105166, guid: 6c27b8cf50357e3409c2df2464f4e255, type: 3}
+  _landEffectComputer: {fileID: 6777162873902105166, guid: 9e8eea98b940ffa42a4f3b0ad84a5acb, type: 3}
 --- !u!58 &6376008676682410012
 CircleCollider2D:
   m_ObjectHideFlags: 0

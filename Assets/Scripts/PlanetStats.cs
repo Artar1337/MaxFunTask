@@ -15,7 +15,7 @@ public class PlanetStats : MonoBehaviour
     private LineRenderer _lineRenderer;
     private Camera _mainCam;
     [SerializeField]
-    private GameObject _ship;
+    private GameObject _ship, _landEffectPlayer, _landEffectComputer;
     private float _radius;
 
     private bool _inDragMode = false, _onPlanet = false;
@@ -141,8 +141,10 @@ public class PlanetStats : MonoBehaviour
                     transform.position.x + x,
                     transform.position.y + y,
                     transform.position.z), Quaternion.identity).
-                    GetComponent<ShipAI>().SetStats(this, 
-                    Resources.instance.LastLightedPlanet, Resources.instance.LastLightedPlanet.Radius);
+                    GetComponent<ShipAI>().SetStats(this,
+                    Resources.instance.LastLightedPlanet,
+                    _owner == EShipOwner.Player ? 
+                    Resources.instance.PlayerColor : Resources.instance.ComputerColor);
             }
         }
         OnMouseExit();
@@ -151,6 +153,12 @@ public class PlanetStats : MonoBehaviour
 
     public void OnPathComplete(PlanetStats target, GameObject ship, PlanetStats sender)
     {
+        // owner is player
+        if(sender._owner == EShipOwner.Player)
+            Instantiate(_landEffectPlayer, ship.transform.position, ship.transform.rotation);
+        // owner is computer
+        else
+            Instantiate(_landEffectComputer, ship.transform.position, ship.transform.rotation);
         Destroy(ship);
         if(target._owner == sender._owner)
         {

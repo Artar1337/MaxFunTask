@@ -549,7 +549,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   version: 1
   data:
-    dataString: UEsDBBQAAAgIAAA4Iez9+V2JZwIAACIFAAALACQAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQF1VE1z2jAQ/SuMziVjYwKht5YQ0kMCE9rJxRdhrbEGWfLoI3xk+O9dyTZ26PSEePt2973Vyp+ES1NBZpVeas5eFAPyfUD8mXwbdMFnONKdkht+hpbzzpktPIkGzhu1XCEe+zSjSrCaZz/kTnhyhKCTPFe6XLAdzJWxBuGcCgMY0sr6bInQ54Ac8Wc48yknPI2m/nTG0ywaXPCYgbSgO2pLbGk1y8lM0LIC5iV35Hh693A/aTLi6C4aj6MomoQUicYaNgZmie+lhOCmUUbsqQrON1UBGrx1xikaDWq87wL4rrBedD93lecGbKNQ09Mj1zivuij5qeohltTsa5kfVDgI6kbjoKuu+vIPYRiHcK5V+dw2jiPfxBY827/RU0aN7Y25Dz9+Ve7kgYo93Qp4L0C+qqVWTjIMWu18qjMweuz+Xr3NC8j2HV5LvQFd9f/L8h4uwf5xLni5DbMf18BGqDDvsAqg8XZ+oeCwKKYpgahX8cfAb7rrb1QTeOLaWAw1LqWXt1VOeypZhJl5N87OlZYQ4EZ0BZIKe1pjGXt7hzexXtubyBP1b6dp3sTaJ3GTEuCOH0U3obU6XC/LFOrwAqZYOSu4hE60D7zinOZKynrF+jNp0zZO5zTrpe0cZ19Xi8ziZAIJ2z7QJKHJ/XQ4u2dJPqUsmU7iyXSWkbB7XKJPKta10GY8eGuyKy5xz9pPymCpaRXWnWl6WPJzqXoj5zJXm0wDyFVd4SocNDbBl8kWjOOANmAtl+G+yWdKhMr2wNJroTQ4XRytpmlXJSUV/1DWIymZh29ISjx83eW1hg8OB9+8LXYhl79QSwMEFAAACAgAADgh7CIDKn5tAAAAeAAAAAkAJABtZXRhLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQGrVipLLSrOzM9TslIw0TPSMzTXUVBKL0osyCgGihiCOKWZKSB2tJKlobFZqnFKkkWisXGisam5rqVpinGaeWKKsbmZoZm5ZbJSLFB9SWVBql9ibipET0BiSUZaZl5KZl66nntRZoo7yGil2FoAUEsBAi0AFAAACAgAADgh7P35XYlnAgAAIgUAAAsAJAAAAAAAAAAAAAAAAAAAAGdyYXBoMC5qc29uCgAgAAAAAAABABgAAIA+1d6xnQEAgD7V3rGdAQCAPtXesZ0BUEsBAi0AFAAACAgAADgh7CIDKn5tAAAAeAAAAAkAJAAAAAAAAAAAAAAAtAIAAG1ldGEuanNvbgoAIAAAAAAAAQAYAACAPtXesZ0BAIA+1d6xnQEAgD7V3rGdAVBLBQYAAAAAAgACALgAAABsAwAAAAA=
+    dataString: UEsDBBQAAAgIAAA4IeyDjBsRYgIAABoFAAALACQAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQF1VE1z2jAQ/SuMzk3GxgFCby0hpAcCE9rJxRdhrbEGWfLog49k+O9dyTZ26PSEePt2973Vyp+ES1NBZpVeaM6WigH5PiD+TL4NuuALnOhOyQ3/gJbzzpktPIkGzhu1XCEe+zSjSrCaZz/kTnhyhKCTPFe6nLMdzJSxBuGcCgMY0sr6bInQ54Cc8Odu6lPOeBpO/OkDT9NocMFjBtKC7qgtsaXVLCczQcsKmJfckePHhh1H9/FwFKgSDTWs6D6ajHwPJQQ3jSJiz1VwvKkK0OAtM07RYFDh/RbAd4X1Yvu5qzw3YBtlmp6fuMY51UXJT1UPr6RmX8s7UOEgKBs+BF111eU/hLs4hHOtype2cRz5Jrbg2f6NnjNqbG+8ffjpq3Inj1Ts6VbAewHyVS20cpJh0GrnU52B4VP39+ptVkC27/Ba6g3oqv9fkvdwCfZPM8HLbZj9Qw1shArzDisAGm/nFwoOC2KaEoh6FX8M/Ka7/iY1gWeujcVQ41J6eVvltKeSeZiZd+PsTGkJAW5EVyCpsOc1lrG3d3gT67W9iTxT/2aa5k2sfQo3KQHu+FF0E1qr4/WyTKGOSzDFylnBJXSifeAV5zRTUtYr1p9Jm7ZxOqdZL23nOPu6WmQaJ2NI2PaRJglNRpO76Ygl+YSyZDKOx5NpRsLucYk+qVjXQpvx4K3JrrjEPWs/JYOFplVYd6bpccE/StUbOZe52mQaQK7qClfhoLEJvkw2ZxwHtAFruQz3TT5TIlS2B5ZeC6XB6fxkNU27Kimp+EFZj6RkFr4dKfHwdZfXGg4cjr55W+xCLn8BUEsDBBQAAAgIAAA4IewiAyp+bQAAAHgAAAAJACQAbWV0YS5qc29uCgAgAAAAAAABABgAAIA+1d6xnQEAgD7V3rGdAQCAPtXesZ0Bq1YqSy0qzszPU7JSMNEz0jM011FQSi9KLMgoBooYgjilmSkgdrSSpaGxWapxSpJForFxorGpua6laYpxmnliirG5maGZuWWyUixQfUllQapfYm4qRE9AYklGWmZeSmZeup57UWaKO8hopdhaAFBLAQItABQAAAgIAAA4IeyDjBsRYgIAABoFAAALACQAAAAAAAAAAAAAAAAAAABncmFwaDAuanNvbgoAIAAAAAAAAQAYAACAPtXesZ0BAIA+1d6xnQEAgD7V3rGdAVBLAQItABQAAAgIAAA4IewiAyp+bQAAAHgAAAAJACQAAAAAAAAAAAAAAK8CAABtZXRhLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQFQSwUGAAAAAAIAAgC4AAAAZwMAAAAA
     upgradeData: 
     file_cachedStartup: {fileID: 0}
     data_cachedStartup: 
@@ -620,64 +620,3 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &2044188783
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 7806431729661301329, guid: abf6952913986af43addee05fec8e5f4, type: 3}
-      propertyPath: m_RootOrder
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 7806431729661301329, guid: abf6952913986af43addee05fec8e5f4, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7806431729661301329, guid: abf6952913986af43addee05fec8e5f4, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7806431729661301329, guid: abf6952913986af43addee05fec8e5f4, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -5
-      objectReference: {fileID: 0}
-    - target: {fileID: 7806431729661301329, guid: abf6952913986af43addee05fec8e5f4, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7806431729661301329, guid: abf6952913986af43addee05fec8e5f4, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7806431729661301329, guid: abf6952913986af43addee05fec8e5f4, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7806431729661301329, guid: abf6952913986af43addee05fec8e5f4, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7806431729661301329, guid: abf6952913986af43addee05fec8e5f4, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7806431729661301329, guid: abf6952913986af43addee05fec8e5f4, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7806431729661301329, guid: abf6952913986af43addee05fec8e5f4, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7806431729661301331, guid: abf6952913986af43addee05fec8e5f4, type: 3}
-      propertyPath: m_Name
-      value: Ship
-      objectReference: {fileID: 0}
-    - target: {fileID: 7806431729661301331, guid: abf6952913986af43addee05fec8e5f4, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: abf6952913986af43addee05fec8e5f4, type: 3}

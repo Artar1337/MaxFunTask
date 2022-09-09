@@ -5,25 +5,27 @@ using Pathfinding;
 
 public class ShipAI : MonoBehaviour
 {
-    private bool _ended = false;
     private Path _path;
     private PlanetStats _sender, _target;
     private int _currentWaypoint = 0;
-    private float _nextWaypointDistance = 0.1f;
+    [SerializeField]
+    private float _nextWaypointDistance = 0.05f;
     private Seeker _seeker;
+    private SpriteRenderer _rend;
 
     private void Start()
     {
         _seeker = GetComponent<Seeker>();
+        _rend = transform.Find("Graphics").GetComponent<SpriteRenderer>();
     }
 
-    public void SetStats(PlanetStats sender, PlanetStats target, float distance)
+    public void SetStats(PlanetStats sender, PlanetStats target, Color shipCol)
     {
         _sender = sender;
         _target = target;
-        _nextWaypointDistance = distance * 0.5f;
-        if(_seeker == null)
-            _seeker = GetComponent<Seeker>();
+        if (_seeker == null || _rend == null)
+            Start();
+        _rend.color = shipCol;
         _seeker.StartPath(transform.position, _target.transform.position, OnPathComplete);
     }
 
@@ -42,13 +44,12 @@ public class ShipAI : MonoBehaviour
         if (_path == null)
             return;
 
+        // path ended
         if(_currentWaypoint >= _path.vectorPath.Count)
         {
-            _ended = true;
             _sender.OnPathComplete(_target, gameObject, _sender);
             return;
         }
-        _ended = false;
 
         if (Vector2.Distance(transform.position, _path.vectorPath[_currentWaypoint]) < _nextWaypointDistance)
         {
