@@ -20,6 +20,7 @@ public class PlanetStats : MonoBehaviour
 
     private bool _inDragMode = false, _onPlanet = false;
 
+    public EShipOwner Owner { get => _owner; }
     public int Ships { set => _ships = value; get => _ships; }
     public float Radius { set => _radius = value; get => _radius; }
 
@@ -60,7 +61,7 @@ public class PlanetStats : MonoBehaviour
     public void SetPlanetOwner(EShipOwner to)
     {
         _owner = to;
-
+        // setting the owner
         if (_owner == EShipOwner.Player)
         {
             _first.color = Resources.instance.PlayerColor;
@@ -70,6 +71,13 @@ public class PlanetStats : MonoBehaviour
         {
             _first.color = Resources.instance.ComputerColor;
             _second.color = Resources.instance.ComputerColor;
+        }
+        // and checking if all the planets are one type
+        Resources.instance.IsGameOver = EnemyController.instance.CheckIfGameIsOver();
+        if (Resources.instance.IsGameOver)
+        {
+            // game over screen
+            Resources.instance.GameOver();
         }
     }
 
@@ -111,6 +119,32 @@ public class PlanetStats : MonoBehaviour
         return Mathf.Abs(v1.x - v2.x) + Mathf.Abs(v1.y - v2.y) + Mathf.Abs(v1.z - v2.z) < EPSILON;
     }
 
+    public void GoToPlanet(PlanetStats target)
+    {
+        //spawn 50% of the total ship count
+        int count = _ships / 2;
+        float x, y;
+        _ships -= count;
+        for (int i = 0; i < count; i++)
+        {
+            x = Resources.instance.GetRandomFloat(0, Radius);
+            if (Resources.instance.Rng.Next() % 2 > 0)
+                x = -x;
+            y = Resources.instance.GetRandomFloat(0, Radius);
+            if (Resources.instance.Rng.Next() % 2 > 0)
+                y = -y;
+
+            Instantiate(_ship, new Vector3(
+                transform.position.x + x,
+                transform.position.y + y,
+                transform.position.z), Quaternion.identity).
+                GetComponent<ShipAI>().SetStats(this,
+                target,
+                _owner == EShipOwner.Player ?
+                Resources.instance.PlayerColor : Resources.instance.ComputerColor);
+        }
+    }
+
     //end unit drag - if stopped on planet - send units to destination
     private void OnMouseUp()
     {
@@ -124,28 +158,7 @@ public class PlanetStats : MonoBehaviour
         if (Resources.instance.LastLightedPlanet._onPlanet && 
             Resources.instance.LastLightedPlanet._owner != EShipOwner.Player)
         {
-            //spawn 50% of the total ship count
-            int count = _ships / 2;
-            float x, y;
-            _ships -= count;
-            for(int i = 0; i < count; i++)
-            {
-                x = Resources.instance.GetRandomFloat(0, Radius);
-                if (Resources.instance.Rng.Next() % 2 > 0)
-                    x = -x;
-                y = Resources.instance.GetRandomFloat(0, Radius);
-                if (Resources.instance.Rng.Next() % 2 > 0)
-                    y = -y;
-
-                Instantiate(_ship, new Vector3(
-                    transform.position.x + x,
-                    transform.position.y + y,
-                    transform.position.z), Quaternion.identity).
-                    GetComponent<ShipAI>().SetStats(this,
-                    Resources.instance.LastLightedPlanet,
-                    _owner == EShipOwner.Player ? 
-                    Resources.instance.PlayerColor : Resources.instance.ComputerColor);
-            }
+            GoToPlanet(Resources.instance.LastLightedPlanet);
         }
         OnMouseExit();
         _lineRenderer.SetPosition(1, _lineRenderer.GetPosition(0));

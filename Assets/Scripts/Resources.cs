@@ -31,8 +31,6 @@ public class Resources : MonoBehaviour
     private Sprite[] _planetSprites;
     [SerializeField]
     private Sprite[] _backgroundImages;
-    [SerializeField]
-    [Range(2,100)]
     private int _planetCount;
     [SerializeField]
     private GameObject _planet;
@@ -42,20 +40,27 @@ public class Resources : MonoBehaviour
     private int _shipsAddition = 5, _minStartShipsCount = 1, _maxStartShipsCount = 50;
     [SerializeField]
     private Color _playerColor, _computerColor;
+    [SerializeField]
+    private ScriptableDifficulty _difficulty;
 
-
+    public ScriptableDifficulty Difficulty { get => _difficulty; }
     public PlanetStats LastLightedPlanet { get => _lastLightedPlanet; set => _lastLightedPlanet = value; }
     public int ShipsAddition { get => _shipsAddition; }
     public Color PlayerColor { get => _playerColor; }
     public Color ComputerColor { get => _computerColor; }
     public KeyValuePair<float, float> Border { get => new KeyValuePair<float, float>(_xBorder + _maxRadius, _yBorder + _maxRadius); }
+    public bool IsGameOver { get => _gameOver; set => _gameOver = value; }
 
+    private bool _gameOver = false, _gameOverMessageShown = false;
     private System.Random _rng;
     private Transform _spawnPoint;
     private PlanetStats _lastLightedPlanet;
+    private Dictionary<float, KeyValuePair<float, float>> _planetsInfo;
 
     public System.Random Rng { get => _rng; }
     public Sprite[] PlanetSprites { get => _planetSprites; }
+
+    public Dictionary<float, KeyValuePair<float, float>> Planets { get => _planetsInfo; }
 
     public float GetRandomFloat(float min, float max)
     {
@@ -67,6 +72,7 @@ public class Resources : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        _planetCount = _difficulty._planetsCount;
         _rng = new System.Random();
 
         // set random background
@@ -131,7 +137,8 @@ public class Resources : MonoBehaviour
             }
             i++;
         }
-
+        // remember coords
+        _planetsInfo = coords;
         // all planets spawned - wait for 2 frames than build a A* graph according to planets
         StartCoroutine(PathFindingCoroutine());
     }
@@ -168,5 +175,15 @@ public class Resources : MonoBehaviour
             stats.Ships = Rng.Next(_minStartShipsCount, _maxStartShipsCount);
         }
         stats.UpdateShip();
+    }
+
+    public void GameOver()
+    {
+        if (_gameOverMessageShown)
+            return;
+
+        Debug.Log("GAME OVER lol");
+
+        _gameOverMessageShown = true;
     }
 }
