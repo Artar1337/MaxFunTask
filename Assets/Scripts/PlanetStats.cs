@@ -58,7 +58,7 @@ public class PlanetStats : MonoBehaviour
         _ships += Resources.instance.ShipsAddition;
     }
 
-    public void SetPlanetOwner(EShipOwner to)
+    public void SetPlanetOwner(EShipOwner to, bool checkGameOver = true)
     {
         _owner = to;
         // setting the owner
@@ -72,6 +72,8 @@ public class PlanetStats : MonoBehaviour
             _first.color = Resources.instance.ComputerColor;
             _second.color = Resources.instance.ComputerColor;
         }
+        if (!checkGameOver)
+            return;
         // and checking if all the planets are one type
         Resources.instance.IsGameOver = EnemyController.instance.CheckIfGameIsOver();
         if (Resources.instance.IsGameOver)
@@ -109,14 +111,15 @@ public class PlanetStats : MonoBehaviour
         _lineRenderer.SetPosition(1, new Vector3(pos.x, pos.y, 0));
     }
 
+    public float DistanceBetween(PlanetStats target)
+    {
+        return Vector2.Distance(target.transform.position, transform.position) -
+            Radius - target.Radius;
+    }
+
     private bool IsPointTouchingObject(Vector2 point, GameObject obj)
     {
         return obj.GetComponent<Collider2D>().OverlapPoint(point);
-    }
-
-    private bool VectorsAreEqual(Vector3 v1, Vector3 v2, double EPSILON = 0.0000001)
-    {
-        return Mathf.Abs(v1.x - v2.x) + Mathf.Abs(v1.y - v2.y) + Mathf.Abs(v1.z - v2.z) < EPSILON;
     }
 
     public void GoToPlanet(PlanetStats target)

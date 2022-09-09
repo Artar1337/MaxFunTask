@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7193d0041e592e3428302d45aa3531b6, type: 3}
-  m_Name: Easy Difficulty
+  m_Name: Hard Difficulty
   m_EditorClassIdentifier: 
-  _easyMode: 1
-  _difficultyName: Easy
-  _planetsCount: 20
+  _easyMode: 0
+  _difficultyName: Hard
+  _planetsCount: 25
   _reactionTime: 2.1

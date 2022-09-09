@@ -162,12 +162,12 @@ public class Resources : MonoBehaviour
         stats.Radius = rad;
         if (index == 1)
         {
-            stats.SetPlanetOwner(EShipOwner.Player);
+            stats.SetPlanetOwner(EShipOwner.Player, false);
             stats.Ships = _maxStartShipsCount;
         }  
         else if (index == 2)
         {
-            stats.SetPlanetOwner(EShipOwner.Computer);
+            stats.SetPlanetOwner(EShipOwner.Computer, false);
             stats.Ships = _maxStartShipsCount;
         }
         else
