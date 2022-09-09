@@ -44,33 +44,32 @@ public class EnemyController : MonoBehaviour
     }
 
     private void ComputerTick()
-    {           
+    {
+        if (Resources.instance.IsGameOver)
+            return;
         int index, reciever, lowestShipsCount = System.Int32.MaxValue, maxShipsCount = 0;
         float shortestDistance = 100000f;
         List<int> indexes;
         if (Resources.instance.Difficulty._easyMode)
         {
             // check every planet - pick random which is not a computer's property
-            if (!Resources.instance.IsGameOver)
-            {
-                // picking random target
-                indexes = new List<int>();
-                for(int i = 0; i < _planets.Length; i++)
-                {
-                    if (_planets[i].Owner != EShipOwner.Computer)
-                        indexes.Add(i);
-                }
-                index = indexes[Resources.instance.Rng.Next(0, indexes.Count)];
-                indexes = new List<int>();
-                // picking random sender planet 
-                for (int number = 0; number < _planets.Length; number++)
-                {
-                    if (_planets[number].Owner == EShipOwner.Computer)
-                        indexes.Add(number);
-                }
-                // go to planet
-                _planets[indexes[Resources.instance.Rng.Next(0, indexes.Count)]].GoToPlanet(_planets[index]);
+            // picking random target
+            indexes = new List<int>();
+            for(int i = 0; i < _planets.Length; i++)
+            { 
+                if (_planets[i].Owner != EShipOwner.Computer)
+                    indexes.Add(i);
             }
+            index = indexes[Resources.instance.Rng.Next(0, indexes.Count)];
+            indexes = new List<int>();
+            // picking random sender planet 
+            for (int number = 0; number < _planets.Length; number++)
+            {
+                if (_planets[number].Owner == EShipOwner.Computer)
+                    indexes.Add(number);
+            }
+            // go to planet
+            _planets[indexes[Resources.instance.Rng.Next(0, indexes.Count)]].GoToPlanet(_planets[index]);
             return;
         }
 

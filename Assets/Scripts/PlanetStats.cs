@@ -93,6 +93,8 @@ public class PlanetStats : MonoBehaviour
     // set planet highlighted
     private void OnMouseEnter()
     {
+        if (Resources.instance.IsGameOver)
+            return;
         _highlight.SetActive(true);
         _onPlanet = true;
         Resources.instance.LastLightedPlanet = this;
@@ -101,6 +103,8 @@ public class PlanetStats : MonoBehaviour
     // set planet not highlighted
     private void OnMouseExit()
     {
+        if (Resources.instance.IsGameOver)
+            return;
         _onPlanet = false;
         if (!_inDragMode)
             _highlight.SetActive(false);
@@ -109,6 +113,8 @@ public class PlanetStats : MonoBehaviour
     // start unit drag
     private void OnMouseDrag()
     {
+        if (Resources.instance.IsGameOver)
+            return;
         if (_owner != EShipOwner.Player)
         {
             return;
@@ -159,6 +165,8 @@ public class PlanetStats : MonoBehaviour
     //end unit drag - if stopped on planet - send units to destination
     private void OnMouseUp()
     {
+        if (Resources.instance.IsGameOver)
+            return;
         _inDragMode = false;
         if (_owner != EShipOwner.Player)
         {

@@ -5,8 +5,6 @@ public class ScriptableDifficulty : ScriptableObject
 {
     // if in easy bot mode - true, else - false
     public bool _easyMode;
-    // difficulty name (eng)
-    public string _difficultyName;
     // planets count
     [Range(2,40)]
     public int _planetsCount;

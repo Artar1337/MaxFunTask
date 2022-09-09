@@ -13,7 +13,6 @@ MonoBehaviour:
   m_Name: Hard Difficulty
   m_EditorClassIdentifier: 
   _easyMode: 0
-  _difficultyName: Hard
-  _planetsCount: 25
-  _reactionTime: 2.1
-  _clip: {fileID: 8300000, guid: 30794a64494d7b44790d7130c8454cc1, type: 3}
+  _planetsCount: 30
+  _reactionTime: 1.25
+  _clip: {fileID: 8300000, guid: e98ad9a03d8572c499ff18c74a045ff1, type: 3}

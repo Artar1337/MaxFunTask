@@ -12,7 +12,7 @@ public class DestroyObjectAfterSeconds : MonoBehaviour
     void Start()
     {
         if (_playExplosionSoundOnAppearence)
-            Resources.instance.Sounds.PlayOneShot(Resources.instance._explosionSound);
+            Resources.instance.PlayExplosionSound();
         StartCoroutine(DeathCoroutine(_TTL));
     }
 

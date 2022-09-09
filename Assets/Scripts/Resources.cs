@@ -41,7 +41,9 @@ public class Resources : MonoBehaviour
     [SerializeField]
     private Color _playerColor, _computerColor;
     [SerializeField]
-    private ScriptableDifficulty _difficulty;
+    private ScriptableDifficulty[] _difficulties;
+    [SerializeField]
+    private string _winString = "Good job!", _loseString = "Cringe...";
 
     public AudioClip _loseClip, _winClip, _playerCapturedClip, _computerCapturedClip, _explosionSound;
 
@@ -58,12 +60,25 @@ public class Resources : MonoBehaviour
     private Transform _spawnPoint;
     private PlanetStats _lastLightedPlanet;
     private Dictionary<float, KeyValuePair<float, float>> _planetsInfo;
-    private AudioSource _sounds;
+    private AudioSource _sounds, _explosions;
+    private int _seconds = 0;
+    private ScriptableDifficulty _difficulty;
 
     public AudioSource Sounds { get => _sounds; }
     public System.Random Rng { get => _rng; }
     public Sprite[] PlanetSprites { get => _planetSprites; }
     public Dictionary<float, KeyValuePair<float, float>> Planets { get => _planetsInfo; }
+
+    private void FixedUpdate()
+    {
+        //если нажимаем escape - игрок мертв.
+        if (Input.GetKey(KeyCode.Escape))
+        {
+            EnemyController.instance.CheckIfGameIsOver();
+            IsGameOver = true;
+            GameOver();
+        }
+    }
 
     public float GetRandomFloat(float min, float max)
     {
@@ -72,11 +87,23 @@ public class Resources : MonoBehaviour
         return (sample * range) + min;
     }
 
+    public void PlayExplosionSound()
+    {
+        _explosions.PlayOneShot(_explosionSound);
+    }
+
     // Start is called before the first frame update
     void Start()
     {
+        // init difficulty according to registry
+        _difficulty = _difficulties[1];
+        if (PlayerPrefs.HasKey("Difficulty") && 
+            PlayerPrefs.GetInt("Difficulty") > -1 && 
+            PlayerPrefs.GetInt("Difficulty") < 3)
+            _difficulty = _difficulties[PlayerPrefs.GetInt("Difficulty")];
         // init components
         _sounds = GetComponent<AudioSource>();
+        _explosions = transform.Find("Ship Explosions").GetComponent<AudioSource>();
         _planetCount = _difficulty._planetsCount;
         _rng = new System.Random();
 
@@ -91,14 +118,23 @@ public class Resources : MonoBehaviour
             _backgroundImages[Rng.Next(0, _backgroundImages.Length)];
 
         // get default spawn point (0;0)
+        if (GameObject.Find("Planets") == null)
+            return;
         _spawnPoint =  GameObject.Find("Planets").transform;
 
         // set borders according to max planet radius
         _xBorder -= _maxRadius;
         _yBorder -= _maxRadius;
 
+        // ingame timer
+        InvokeRepeating(nameof(PassASecond), 1, 1);
         // set some planets
         SpawnPlanets();
+    }
+
+    public void PassASecond()
+    {
+        _seconds++;
     }
 
     private float DistanceBetweenTwoVectors(Vector2 v1, Vector2 v2)
@@ -193,18 +229,28 @@ public class Resources : MonoBehaviour
         if (_gameOverMessageShown)
             return;
 
-        Debug.Log("GAME OVER lol");
+        Transform container = transform.Find("GameOverPanel");
+        Debug.Log("GAME OVER");
+
         // computer won
         if (EnemyController.instance.Owners.Contains(EShipOwner.Computer))
         {
             Sounds.PlayOneShot(_loseClip);
+            container.Find("Title").GetComponent<Text>().text = _loseString;
         }
         // player won
         else
         {
             Sounds.PlayOneShot(_winClip);
+            container.Find("Title").GetComponent<Text>().text = _winString;
         }
-        
+        container.Find("Timer").GetComponent<Text>().text = "Time: " + _seconds.ToString() + " sec.";
+        container.gameObject.SetActive(true);
         _gameOverMessageShown = true;
+    }
+
+    public void LoadMenu()
+    {
+        UnityEngine.SceneManagement.SceneManager.LoadScene("Menu");
     }
 }
